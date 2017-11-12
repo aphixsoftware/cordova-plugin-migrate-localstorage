@@ -49,14 +49,12 @@
     target = [target stringByAppendingPathComponent:bundleIdentifier];
 #endif
 
-    target = [target stringByAppendingPathComponent:@"WebsiteData/LocalStorage/file__0.localstorage"];
-
-    // Only copy data if no existing localstorage data exists yet for wkwebview
-    if (![[NSFileManager defaultManager] fileExistsAtPath:target]) {
+    WKWebViewLocalStoragePath = [WKWebViewLocalStoragePath stringByAppendingPathComponent:@"WebsiteData/LocalStorage/http_localhost_49000.localstorage"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:WKWebViewLocalStoragePath]) {
         NSLog(@"No existing localstorage data found for WKWebView. Migrating data from UIWebView");
-        [self copyFrom:original to:target];
-        [self copyFrom:[original stringByAppendingString:@"-shm"] to:[target stringByAppendingString:@"-shm"]];
-        [self copyFrom:[original stringByAppendingString:@"-wal"] to:[target stringByAppendingString:@"-wal"]];
+        [self copyFrom:UIWebViewLocalStoragePath to:WKWebViewLocalStoragePath];
+        [self copyFrom:[UIWebViewLocalStoragePath stringByAppendingString:@"-shm"] to:[WKWebViewLocalStoragePath stringByAppendingString:@"-shm"]];
+        [self copyFrom:[UIWebViewLocalStoragePath stringByAppendingString:@"-wal"] to:[WKWebViewLocalStoragePath stringByAppendingString:@"-wal"]];
     }
 }
 

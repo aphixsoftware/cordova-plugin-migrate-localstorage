@@ -10,10 +10,12 @@ left of.
 
 Simply add the plugin to your cordova project via the cli:
 ```sh
-cordoa plugin add cordova-plugin-migrate-localstorage
+cordoa plugin add https://github.com/aphixsoftware/cordova-plugin-migrate-localstorage
 ```
 
 ## Notes
+
+- This plugin is configured to migrate old web view local storage to the new WK web view working on port 49000 and plugin cordova-plugin-wkwebview-engine and cocoon-cordova-labs-local-webserver 
 
 - LocalStorage files are only copied over once and only if no LocalStorage data exists for `WKWebView`
 yet. This means that if you've run your app with `WKWebView` before this plugin will likely not work.
