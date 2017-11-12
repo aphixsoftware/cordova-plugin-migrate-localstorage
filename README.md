@@ -10,7 +10,7 @@ left of.
 
 Simply add the plugin to your cordova project via the cli:
 ```sh
-cordoa plugin add https://github.com/aphixsoftware/cordova-plugin-migrate-localstorage
+cordova plugin add https://github.com/aphixsoftware/cordova-plugin-migrate-localstorage
 ```
 
 ## Notes
