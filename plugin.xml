@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="cordova-plugin-migrate-localstorage"
-        version="0.0.3">
+        version="0.0.4">
     <name>Migrate WebView Data</name>
     <description>Migrate LocalStorage data from UIWebView to WKWebView</description>
     <license>Apache 2.0</license>
@@ -19,13 +19,6 @@
             <feature name="MigrateLocalStorage">
                 <param name="ios-package" value="MigrateLocalStorage" onload="true"/>
             </feature>
-
-            <content src="http://localhost:49000"/>
-            <preference name="AlternateContentSrc" value="http://localhost:49000"/>
-            <feature name="CDVWKWebViewEngine">
-                <param name="ios-package" value="CDVWKWebViewEngine"/>
-            </feature>
-            <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine"/>
         </config-file>
         <header-file src="src/ios/MigrateLocalStorage.h"/>
         <source-file src="src/ios/MigrateLocalStorage.m"/>

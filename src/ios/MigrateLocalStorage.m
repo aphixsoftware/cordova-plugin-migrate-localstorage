@@ -27,28 +27,24 @@
 
 - (void) migrateLocalStorage
 {
-    // Migrate UIWebView local storage files to WKWebView. Adapted from
-    // https://github.com/Telerik-Verified-Plugins/WKWebView/blob/master/src/ios/MyMainViewController.m
-
-    NSString* appLibraryFolder = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString* original;
-
+    NSString *appLibraryFolder = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *cacheFolder;
+    
     if ([[NSFileManager defaultManager] fileExistsAtPath:[appLibraryFolder stringByAppendingPathComponent:@"WebKit/LocalStorage/file__0.localstorage"]]) {
-        original = [appLibraryFolder stringByAppendingPathComponent:@"WebKit/LocalStorage"];
+        cacheFolder = [appLibraryFolder stringByAppendingPathComponent:@"WebKit/LocalStorage"];
     } else {
-        original = [appLibraryFolder stringByAppendingPathComponent:@"Caches"];
+        cacheFolder = [appLibraryFolder stringByAppendingPathComponent:@"Caches"];
     }
-
-    original = [original stringByAppendingPathComponent:@"file__0.localstorage"];
-
-    NSString* target = [[NSString alloc] initWithString: [appLibraryFolder stringByAppendingPathComponent:@"WebKit"]];
-
+    
+    NSString *UIWebViewLocalStoragePath = [cacheFolder stringByAppendingPathComponent:@"file__0.localstorage"];
+    NSString *WKWebViewLocalStoragePath = [[NSString alloc] initWithString: [appLibraryFolder stringByAppendingPathComponent:@"WebKit"]];
+    
 #if TARGET_IPHONE_SIMULATOR
-    // the simulutor squeezes the bundle id into the path
     NSString* bundleIdentifier = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-    target = [target stringByAppendingPathComponent:bundleIdentifier];
+    WKWebViewLocalStoragePath = [WKWebViewLocalStoragePath stringByAppendingPathComponent:bundleIdentifier];
 #endif
 
+    
     WKWebViewLocalStoragePath = [WKWebViewLocalStoragePath stringByAppendingPathComponent:@"WebsiteData/LocalStorage/http_localhost_49000.localstorage"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:WKWebViewLocalStoragePath]) {
         NSLog(@"No existing localstorage data found for WKWebView. Migrating data from UIWebView");
